@@ -136,3 +136,25 @@ out_test = test_df_encoded['class']
 #inp_train.head()
 #out_train.head()
 
+# now we scale the dataset
+# say one col has values like 5000,6000,4300,7500 and another col has values like 0.2, 0.4, 0.009, 0.5
+# the col with bigger values will overshadow the smaller val's -> example when using distance formula -> sqrt(5000^2 + 0.3^2), the 0.3 is negligible
+# so the 2nd col will barely affect the models prediction
+# so we scale all the numerical val col's, so everything has small values between 0 and 1 or something like that -> hence giving equal weightage to everything
+# we'll import and use standardScalar for this
+
+# all the col's which have numerical values
+numeric_cols = ['duration', 'src_bytes', 'dst_bytes', 'land', 'wrong_fragment', 'urgent', 'hot', 'num_failed_logins', 'logged_in', 'num_compromised', 'root_shell', 
+                'su_attempted', 'num_root', 'num_file_creations', 'num_shells', 'num_access_files', 'num_outbound_cmds', 'is_host_login', 'is_guest_login', 'count', 'srv_count', 
+                'serror_rate', 'srv_serror_rate', 'rerror_rate', 'srv_rerror_rate', 'same_srv_rate', 'diff_srv_rate', 'srv_diff_host_rate', 'dst_host_count', 
+                'dst_host_srv_count', 'dst_host_same_srv_rate', 'dst_host_diff_srv_rate', 'dst_host_same_src_port_rate', 'dst_host_srv_diff_host_rate', 'dst_host_serror_rate', 
+                'dst_host_srv_serror_rate', 'dst_host_rerror_rate', 'dst_host_srv_rerror_rate']
+
+scaler = StandardScaler() # create an scaler obj
+
+# applying the scaler to all the numeric col's in both the testing and training input set
+inp_train[numeric_cols] = scaler.fit_transform(inp_train[numeric_cols])
+inp_test[numeric_cols] = scaler.fit_transform(inp_test[numeric_cols])
+
+# print(inp_train.shape, inp_test.shape)
+# inp_train.head()
