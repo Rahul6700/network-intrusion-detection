@@ -59,7 +59,7 @@ test_df_encoded = pd.get_dummies(test_df, columns=['protocol_type', 'service', '
 
 # so we add all the column's in the training set that are not there in the test set, to the test set (fill the values with 0)
 # this function does the same for us -> .reindex()
-test_df_encoded = train_df_encoded.reindex(columns=train_df_encoded.columns, fill_value=0)
+test_df_encoded = test_df_encoded.reindex(columns=train_df_encoded.columns, fill_value=0)
 
 #print(list(test_df_encoded.columns) == list(train_df_encoded.columns)) # now this returns true
 
